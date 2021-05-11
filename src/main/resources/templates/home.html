@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:insert="common/header.html" id="header"></div>
+
+<a th:href="@{/playlist}">Create Playlist</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Playlist-Title</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="playlist : ${playlistList}">
+        <td th:text="${playlist.id}"></td>
+
+
+        <td>
+            <a th:href="@{'/playlist/'+${playlist.id}}" th:text="${playlist.title}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:insert="common/footer.html" id="footer"></div>
+
+</body>
+</html>

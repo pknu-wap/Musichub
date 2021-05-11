@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:insert="common/header.html" id="header"></div>
+
+<h2 th:text="${playlistDto.title}"></h2>
+<p th:inline="text">작성일 : [[${#temporals.format(playlistDto.createDate, 'yyyy-MM-dd HH:mm')}]]</p>
+
+<div>
+    <a th:href="@{'/playlist/edit/'+${playlistDto.id}}">
+        <button>수정</button>
+    </a>
+
+    <form id="delete-form" th:action="@{'/playlist/' + ${playlistDto.id}}" th:method="delete">
+        <button id="delete-btn">삭제</button>
+    </form>
+</div>
+
+</body>
+</html>
