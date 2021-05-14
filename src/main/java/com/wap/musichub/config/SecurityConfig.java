@@ -1,5 +1,6 @@
 package com.wap.musichub.config;
 
+import com.wap.musichub.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +33,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/myinfo").hasRole("MEMBER")
+                .antMatchers("/**").permitAll()
+                .and()
+                .formLogin()
+                .loginPage("/user/login")
+                .defaultSuccessUrl("/user/login/result")
+                .permitAll()
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                .logoutSuccessUrl("/user/logout/result")
+                .invalidateHttpSession(true)
+                .and()
+                .exceptionHandling().accessDeniedPage("/user/denied");
     }
 
     @Override
