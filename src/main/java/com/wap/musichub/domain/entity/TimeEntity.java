@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass // 테이블로 맵핑하지 않고, 자식클래스의 테이블에서 맵핑하도록.
 @EntityListeners(AuditingEntityListener.class) // jpa auditing을 사용하는 entity, 시간을 자동으로 넣어준다.
-public class TimeEntity {
+public abstract class TimeEntity {
 
     @CreatedDate // 처음 생성될 때 생성일 주입
     @Column(updatable = false)
