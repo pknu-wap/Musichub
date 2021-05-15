@@ -9,7 +9,7 @@
 <div th:insert="common/header.html" id="header"></div>
 <h2>Create Playlist</h2>
 
-<form action="/playlist" method="post">
+<form th:action="@{/playlist}" method="post">
     <input type="text" name="title" placeholder="Playlist Title"/> <br/>
     <input type="submit" value="Create"/>
 </form>

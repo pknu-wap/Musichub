@@ -24,6 +24,7 @@ public class PlaylistController {
 
     @PostMapping("/playlist")
     public String create(PlaylistDto playlistDto) {
+
         playlistService.savePlaylist(playlistDto);
 
         return "redirect:/";

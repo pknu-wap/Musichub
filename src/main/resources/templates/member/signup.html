@@ -11,7 +11,7 @@
 <h2>Signup</h2>
 
 
-<form th:action="@{/user/signup}" method="post">
+<form th:action="@{/member/signup}" method="post">
     <div>
         <input type="text" name="email" th:value="${memberDto.email}" placeholder="이메일을 입력해주세요.">
         <span th:text="${valid_email}"></span>

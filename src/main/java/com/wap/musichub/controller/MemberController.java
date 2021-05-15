@@ -27,13 +27,14 @@ public class MemberController {
     }
 
     // Signup page
-    @GetMapping("/member/signup")
+    @GetMapping("member/signup")
     public String displaySignup(MemberDto memberDto) {
+
         return "member/signup";
     }
 
     // execute signup
-    @PostMapping("/member/signup")
+    @PostMapping("member/signup")
     public String executeSignup(@Valid MemberDto memberDto, Errors errors, Model model) {
 
 
@@ -47,12 +48,19 @@ public class MemberController {
                 model.addAttribute(key, validatorResult.get(key));
             }
 
-            return "/signup";
+            return "member/signup";
 
         }
 
         memberService.joinUser(memberDto);
 
         return "redirect:/member/login";
+    }
+
+    // my page
+    @GetMapping("/member/info")
+    public String displayInfo(){
+
+        return "/member/info";
     }
 }
