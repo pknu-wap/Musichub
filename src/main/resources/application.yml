@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/musichub1?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/todo1?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
-    password: 1111
+    password: 1376
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -12,7 +12,7 @@ spring:
     hibernate:
       format_sql: true
   #      create 마다 초기화
-      ddl-auto: create
+      ddl-auto: none
 
   #  delete, put 메소드 사용
   mvc:

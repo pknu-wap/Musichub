@@ -5,7 +5,12 @@ import com.wap.musichub.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Objects;
 
 @Controller
 public class PlaylistController {
@@ -23,9 +28,21 @@ public class PlaylistController {
     }
 
     @PostMapping("/playlist")
-    public String create(PlaylistDto playlistDto) {
+    public String create(PlaylistDto playlistDto, @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
-        playlistService.savePlaylist(playlistDto);
+        // 원본 파일명
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+
+        playlistDto.setPhoto(fileName);
+        Long getId = playlistService.savePlaylist(playlistDto);
+
+        // 업로드 경로
+        String uploadDir = "src/main/resources/static/img/title/" + getId;
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+
+//        playlistDto.setPhoto(uploadDir+'/'+fileName);
+//        playlistService.savePlaylist(playlistDto);
 
         return "redirect:/";
     }

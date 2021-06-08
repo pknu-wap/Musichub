@@ -10,6 +10,9 @@
 
 <h2 th:text="${playlistDto.title}"></h2>
 <p th:inline="text">작성일 : [[${#temporals.format(playlistDto.createDate, 'yyyy-MM-dd HH:mm')}]]</p>
+<br/>
+<img th:src="@{'/img/title/'+${playlistDto.id}+'/'+${playlistDto.photo}}" width="200"/>
+
 
 <div>
     <a th:href="@{'/playlist/edit/'+${playlistDto.id}}">

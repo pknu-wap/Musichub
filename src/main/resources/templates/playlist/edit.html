@@ -9,9 +9,10 @@
 <div th:insert="common/header.html" id="header"></div>
 <h2>Edit Playlist</h2>
 
-<form th:action="@{'/playlist/edit/'+${playlistDto.id}}" method="post">
+<form th:action="@{'/playlist/edit/'+${playlistDto.id}}" method="post" enctype="multipart/form-data">
   <input type="hidden" name="_method" value="put"/>
   <input type="text" name="title" placeholder="Modified Title" th:value="${playlistDto.title}"/> <br/>
+  <input type="file" name="image"/> <br/>
   <input type="submit" value="Edit"/>
 </form>
 

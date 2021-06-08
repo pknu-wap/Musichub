@@ -35,6 +35,7 @@ public class PlaylistService {
             PlaylistDto dto = PlaylistDto.builder()
                     .id(entity.getId())
                     .title(entity.getTitle())
+                    .photo(entity.getPhoto())
                     .build();
 
             DtoList.add(dto);
@@ -51,6 +52,7 @@ public class PlaylistService {
         PlaylistDto dto = PlaylistDto.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
+                .photo(entity.getPhoto())
                 .createDate(entity.getCreateDate())
                 .build();
 

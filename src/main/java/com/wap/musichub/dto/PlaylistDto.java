@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 // DTO : Data Transfer Object
 // dto는 Controller <-> Service <-> Repository 간에 필요한 데이터를 캡슐화한 데이터 전달 객체입니다.
-// DB에서 데이터를 얻어 Service나 Controller 등으터 보낼 때 사용하는 객체를 말한다.
+// DB에서 데이터를 얻어 Service나 Controller 등으로 보낼 때 사용하는 객체를 말한다.
 //
 // https://gmlwjd9405.github.io/2018/12/25/difference-dao-dto-entity.html
 @Data
@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class PlaylistDto {
     private Long id;
     private String title;
+    private String photo;
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
 
@@ -25,14 +26,16 @@ public class PlaylistDto {
         PlaylistEntity playlistEntity = PlaylistEntity.builder()
                 .id(id)
                 .title(title)
+                .photo(photo)
                 .build();
         return playlistEntity;
     }
 
     @Builder
-    public PlaylistDto(Long id, String title, LocalDateTime createDate, LocalDateTime modifiedDate) {
+    public PlaylistDto(Long id, String title, String photo, LocalDateTime createDate, LocalDateTime modifiedDate) {
         this.id = id;
         this.title = title;
+        this.photo = photo;
         this.createDate = createDate;
         this.modifiedDate = modifiedDate;
     }
