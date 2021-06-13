@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/musichub1?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
-    password: 1376
+    password:
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -19,3 +19,8 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+
+
+  devtools:
+    livereload:
+      enabled: true
