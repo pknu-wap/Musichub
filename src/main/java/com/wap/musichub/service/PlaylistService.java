@@ -61,4 +61,25 @@ public class PlaylistService {
     public void deleteById(Long id) {
         playlistRepository.deleteById(id);
     }
+
+    //검색 관련 서비스
+    public List<PlaylistDto> searchPlaylist(String keyword) {
+        List<PlaylistEntity> playlistEntities = playlistRepository.findByTitleContaining(keyword);
+        List<PlaylistDto> playDtoList = new ArrayList<>();
+
+        if (playlistEntities.isEmpty()) return playDtoList;
+
+        for (PlaylistEntity playlistEntity : playlistEntities) {
+            playDtoList.add(this.convertEntityToDto(playlistEntity));
+        }
+
+        return playDtoList;
+    }
+
+    private PlaylistDto convertEntityToDto(PlaylistEntity boardEntity) {
+        return PlaylistDto.builder()
+                .id(boardEntity.getId())
+                .title(boardEntity.getTitle())
+                .build();
+    }
 }
