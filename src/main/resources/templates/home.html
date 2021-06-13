@@ -2,42 +2,104 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <title>Musichub-Home</title>
 </head>
 <body>
 
-<div th:insert="common/header.html" id="header"></div>
+    <div class="text-end p-2" style="color: #568CF5;">
+        <a sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/member/signup}">회원가입</a>
+        <a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/member/info}">내정보</a>
+    </div>
+
+    <div th:insert="common/header.html" id="header"></div>
+
+    <div class="home-title text-center p-2">
+        <h1 style="font-size: 48px;">Musichub</h1>
+    </div>
+
+    <div class="container p-4">
+        <div class="row">
+            <div class="col">
+                <form action="">
+                    <div class="input-group mb-4 border rounded-pill p-2">
+                      <input type="search" placeholder="Find Playlist.." aria-describedby="button-addon3" class="form-control bg-none border-0">
+                      <div class="input-group-append border-0">
+                        <button id="button-addon3" type="button" class="btn btn-link text-success"><i class="fa fa-search"></i></button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- <a th:href="@{/playlist}">Create Playlist</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Playlist-Title</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="playlist : ${playlistList}">
+            <td th:text="${playlist.id}"></td>
 
 
-<a sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
-<a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
-<a sec:authorize="isAnonymous()" th:href="@{/member/signup}">회원가입</a>
-<a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/member/info}">내정보</a>
+            <td>
+                <a th:href="@{'/playlist/'+${playlist.id}}" th:text="${playlist.title}"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table> -->
 
-<hr>
+    <div class="container">
+        <div class="row">
+            <div class="col mt-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://i.stack.imgur.com/y9DpT.jpg" class="card-img-top" alt="">
+                    <div class="card-body">
+                      <p class="card-text">Create Playlist</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col mt-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://i.stack.imgur.com/y9DpT.jpg" class="card-img-top" alt="">
+                    <div class="card-body">
+                      <p class="card-text">Playlist Title</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col mt-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://i.stack.imgur.com/y9DpT.jpg" class="card-img-top" alt="">
+                    <div class="card-body">
+                      <p class="card-text">Playlist Title</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col mt-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://i.stack.imgur.com/y9DpT.jpg" class="card-img-top" alt="">
+                    <div class="card-body">
+                      <p class="card-text">Playlist Title</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<a th:href="@{/playlist}">Create Playlist</a>
+    <div th:insert="common/footer.html" id="footer"></div>
 
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Playlist-Title</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="playlist : ${playlistList}">
-        <td th:text="${playlist.id}"></td>
-
-
-        <td>
-            <a th:href="@{'/playlist/'+${playlist.id}}" th:text="${playlist.title}"></a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<div th:insert="common/footer.html" id="footer"></div>
-
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.js"></script>
 </body>
 </html>
