@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception{
         // static 하위 디렉토리는 인증없이.
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**");
+        web.ignoring().antMatchers("/node_modules/**", "/css/**", "/js/**", "/img/**", "/lib/**");
     }
 
     @Override
