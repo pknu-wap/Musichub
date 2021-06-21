@@ -9,6 +9,7 @@
 <div th:insert="common/header.html" id="header"></div>
 
 <h2 th:text="${playlistDto.title}"></h2>
+작성자 : <span th:text="${playlistDto.writer}"></span> <br/>
 <p th:inline="text">작성일 : [[${#temporals.format(playlistDto.createDate, 'yyyy-MM-dd HH:mm')}]]</p>
 
 <div>

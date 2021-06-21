@@ -5,11 +5,14 @@ package com.wap.musichub.controller;
 import com.wap.musichub.dto.PlaylistDto;
 import com.wap.musichub.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,6 +28,7 @@ public class HomeController {
     public String home(Model model) {
         List<PlaylistDto> playlistList = playlistService.getList();
         model.addAttribute("playlistList", playlistList);
+
         return "home";
     }
 

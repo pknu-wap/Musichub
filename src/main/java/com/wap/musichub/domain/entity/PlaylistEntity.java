@@ -15,9 +15,12 @@ public class PlaylistEntity extends TimeEntity {
 
     private String title;
 
+    private String writer;
+
     @Builder // setter보다 builder가 안정성이 보장된다.
-    public PlaylistEntity(Long id, String title) {
+    public PlaylistEntity(Long id, String title, String writer) {
         this.id = id;
         this.title = title;
+        this.writer = writer;
     }
 }

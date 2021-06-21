@@ -2,6 +2,8 @@ package com.wap.musichub.controller;
 
 import com.wap.musichub.dto.MemberDto;
 import com.wap.musichub.service.MemberService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Map;
 
 @Controller
@@ -59,7 +62,14 @@ public class MemberController {
 
     // my page
     @GetMapping("/member/info")
-    public String displayInfo(){
+    public String displayInfo(Model model){
+
+
+        // 닉네임 표시
+        // 타임리프에서 어떻게 가져올지 몰라서, authorities Arraylist에서 추출해서 사용함.
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String nickname = ""+new ArrayList(auth.getAuthorities()).get(1);
+        model.addAttribute("nickname", nickname);
 
         return "/member/info";
     }
