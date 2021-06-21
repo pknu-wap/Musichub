@@ -35,6 +35,7 @@ public class PlaylistService {
             PlaylistDto dto = PlaylistDto.builder()
                     .id(entity.getId())
                     .title(entity.getTitle())
+                    .writer(entity.getWriter())
                     .build();
 
             DtoList.add(dto);
@@ -51,6 +52,7 @@ public class PlaylistService {
         PlaylistDto dto = PlaylistDto.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
+                .writer(entity.getWriter())
                 .createDate(entity.getCreateDate())
                 .build();
 
@@ -76,10 +78,11 @@ public class PlaylistService {
         return playDtoList;
     }
 
-    private PlaylistDto convertEntityToDto(PlaylistEntity boardEntity) {
+    private PlaylistDto convertEntityToDto(PlaylistEntity playlistEntity) {
         return PlaylistDto.builder()
-                .id(boardEntity.getId())
-                .title(boardEntity.getTitle())
+                .id(playlistEntity.getId())
+                .title(playlistEntity.getTitle())
+                .writer(playlistEntity.getWriter())
                 .build();
     }
 }

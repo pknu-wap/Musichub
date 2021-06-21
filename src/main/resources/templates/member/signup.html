@@ -18,6 +18,12 @@
     </div>
 
     <div>
+        <input type="text" name="nickname" th:value="${memberDto.nickname}"  placeholder="닉네임" >
+        <span th:text="${valid_nickname}"></span>
+    </div>
+
+
+    <div>
         <input type="password" name="password" placeholder="비밀번호">
         <span th:text="${valid_password}"></span>
     </div>

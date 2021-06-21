@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class PlaylistDto {
     private Long id;
     private String title;
+    private String writer;
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
 
@@ -25,14 +26,16 @@ public class PlaylistDto {
         PlaylistEntity playlistEntity = PlaylistEntity.builder()
                 .id(id)
                 .title(title)
+                .writer(writer)
                 .build();
         return playlistEntity;
     }
 
     @Builder
-    public PlaylistDto(Long id, String title, LocalDateTime createDate, LocalDateTime modifiedDate) {
+    public PlaylistDto(Long id, String title, String writer, LocalDateTime createDate, LocalDateTime modifiedDate) {
         this.id = id;
         this.title = title;
+        this.writer = writer;
         this.createDate = createDate;
         this.modifiedDate = modifiedDate;
     }

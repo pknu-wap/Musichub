@@ -20,6 +20,9 @@ public class MemberDto {
     private String email;
 
     @NotBlank(message = "필수 입력입니다.")
+    private String nickname;
+
+    @NotBlank(message = "필수 입력입니다.")
     @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}",
             message = "비밀번호는 대, 소문자와 숫자, 특수기호가 1개 이상 포함된 8-20자리 비밀번호여야 합니다.")
     private String password;
@@ -29,14 +32,16 @@ public class MemberDto {
         return MemberEntity.builder()
                 .id(id)
                 .email(email)
+                .nickname(nickname)
                 .password(password)
                 .build();
     }
 
     @Builder
-    public MemberDto(Long id, String email, String password) {
+    public MemberDto(Long id, String email, String nickname, String password) {
         this.id = id;
         this.email = email;
+        this.nickname = nickname;
         this.password = password;
     }
 }

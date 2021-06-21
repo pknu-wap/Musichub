@@ -44,7 +44,7 @@
     <div class="container">
 
 <!--        추가버튼 따로 빼주세요-->
-        <div class="col mt-4" align="center">
+        <div sec:authorize="isAuthenticated()" class="col mt-4" align="center">
             <div class="card" style="width: 5rem;" >
                 <a th:href="@{/playlist}">
                     <!--이미지와 크기 적절히 변경 바람-->
@@ -65,6 +65,7 @@
                             <p class="card-text" th:text="${playlist.title}"></p>
                         </div>
                     </a>
+                    <p th:text="${playlist.writer}"></p>
                 </div>
             </div>
 
