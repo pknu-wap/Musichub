@@ -2,42 +2,92 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Musichub-Home</title>
 </head>
 <body>
 
-<div th:insert="common/header.html" id="header"></div>
+
+    <div class="text-end p-2" style="color: #568CF5;">
+        <span sec:authorize="isAuthenticated()">
+            <span sec:authentication="name"></span>님 안녕하세요!
+        </span>
+        <a sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/member/signup}">회원가입</a>
+        <a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/member/info}">내정보</a>
+    </div>
+
+<!--    <div th:insert="common/header.html" id="header"></div>-->
+
+    <div class="home-title text-center p-2">
+        <h1 style="font-size: 48px;">Musichub</h1>
+    </div>
+
+    <div class="container p-4">
+        <div class="row">
+            <div class="col">
+                <form th:action="@{/search}" method="get">
+                    <div class="input-group mb-4 border rounded-pill p-2">
+                      <input type="text" name="keyword" placeholder="Find Playlist.." aria-describedby="button-addon3" class="form-control bg-none border-0">
+                      <div class="input-group-append border-0">
+                        <button id="button-addon3" type="button" class="btn btn-link text-success"><i class="fa fa-search"></i></button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
-<a sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
-<a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
-<a sec:authorize="isAnonymous()" th:href="@{/member/signup}">회원가입</a>
-<a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/member/info}">내정보</a>
+    </div>
 
-<hr>
+    <div class="container">
 
-<a th:href="@{/playlist}">Create Playlist</a>
-
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Playlist-Title</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="playlist : ${playlistList}">
-        <td th:text="${playlist.id}"></td>
+<!--        추가버튼 따로 빼주세요-->
+        <div sec:authorize="isAuthenticated()" class="col mt-4" align="center">
+            <div class="card" style="width: 5rem;" >
+                <a th:href="@{/playlist}">
+                    <!--이미지와 크기 적절히 변경 바람-->
+                    <img src="https://media.istockphoto.com/vectors/black-plus-sign-positive-symbol-vector-id688550958?k=6&m=688550958&s=612x612&w=0&h=nVa-a5Fb79Dgmqk3F00kop9kF4CXFpF4kh7vr91ERGk="
+                         class="card-img-top" alt="">
+                </a>
+            </div>
+        </div>
 
 
-        <td>
-            <a th:href="@{'/playlist/'+${playlist.id}}" th:text="${playlist.title}"></a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        <div class="row">
 
-<div th:insert="common/footer.html" id="footer"></div>
+            <div class="col mt-4" th:each="playlist : ${playlistList}">
+                <div class="card" style="width: 18rem;">
+                    <a th:href="@{'/playlist/'+${playlist.id}}">
+                        <img src="https://img.freepik.com/free-psd/mockup-back-view-standing-blank-vinyl-record-with-cover-against-white-wall_75507-186.jpg?size=626&ext=jpg" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <p class="card-text" th:text="${playlist.title}"></p>
+                        </div>
+                    </a>
+                    <p th:text="${playlist.writer}" style="padding-left: 16px"></p>
+                </div>
+            </div>
 
+
+<!--            <div class="col mt-4">-->
+<!--                <div class="card" style="width: 18rem;">-->
+<!--                    <img src="https://i.stack.imgur.com/y9DpT.jpg" class="card-img-top" alt="">-->
+<!--                    <div class="card-body">-->
+<!--                      <p class="card-text">Playlist Title1</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </div>
+
+    <div th:insert="common/footer.html" id="footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.js"></script>
 </body>
 </html>

@@ -2,6 +2,8 @@ package com.wap.musichub.controller;
 
 import com.wap.musichub.dto.MemberDto;
 import com.wap.musichub.service.MemberService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Map;
 
 @Controller
@@ -60,6 +63,7 @@ public class MemberController {
     // my page
     @GetMapping("/member/info")
     public String displayInfo(){
+
 
         return "/member/info";
     }

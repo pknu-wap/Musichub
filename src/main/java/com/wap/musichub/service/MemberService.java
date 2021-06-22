@@ -1,6 +1,7 @@
 package com.wap.musichub.service;
 
 
+import com.wap.musichub.domain.CustomUser;
 import com.wap.musichub.domain.Role;
 import com.wap.musichub.domain.entity.MemberEntity;
 import com.wap.musichub.domain.repository.JpaMemberRepository;
@@ -45,9 +46,10 @@ public class MemberService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
         }else{
             authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
+            authorities.add(new SimpleGrantedAuthority(memberEntity.getNickname()));
         }
 
-        return new User(memberEntity.getEmail(), memberEntity.getPassword(), authorities);
+        return new CustomUser(memberEntity.getEmail(), memberEntity.getPassword(), authorities);
 
     }
 

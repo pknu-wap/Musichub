@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,6 +11,7 @@
 
 <form th:action="@{/playlist}" method="post">
     <input type="text" name="title" placeholder="Playlist Title"/> <br/>
+    <input type="text" name="writer" th:value="${#authentication.getName()}" readonly/> <br/>
     <input type="submit" value="Create"/>
 </form>
 

@@ -35,6 +35,7 @@ public class PlaylistService {
             PlaylistDto dto = PlaylistDto.builder()
                     .id(entity.getId())
                     .title(entity.getTitle())
+                    .writer(entity.getWriter())
                     .build();
 
             DtoList.add(dto);
@@ -51,6 +52,7 @@ public class PlaylistService {
         PlaylistDto dto = PlaylistDto.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
+                .writer(entity.getWriter())
                 .createDate(entity.getCreateDate())
                 .build();
 
@@ -60,5 +62,27 @@ public class PlaylistService {
     @Transactional
     public void deleteById(Long id) {
         playlistRepository.deleteById(id);
+    }
+
+    //검색 관련 서비스
+    public List<PlaylistDto> searchPlaylist(String keyword) {
+        List<PlaylistEntity> playlistEntities = playlistRepository.findByTitleContaining(keyword);
+        List<PlaylistDto> playDtoList = new ArrayList<>();
+
+        if (playlistEntities.isEmpty()) return playDtoList;
+
+        for (PlaylistEntity playlistEntity : playlistEntities) {
+            playDtoList.add(this.convertEntityToDto(playlistEntity));
+        }
+
+        return playDtoList;
+    }
+
+    private PlaylistDto convertEntityToDto(PlaylistEntity playlistEntity) {
+        return PlaylistDto.builder()
+                .id(playlistEntity.getId())
+                .title(playlistEntity.getTitle())
+                .writer(playlistEntity.getWriter())
+                .build();
     }
 }
