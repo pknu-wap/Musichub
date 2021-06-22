@@ -20,7 +20,7 @@
 <div class="center inline">
 <form th:action="@{/member/signup}" method="post">
     <div>
-        <input type="text" class="text" name="email" th:value="${memberDto.email}" placeholder="Email">
+        <input type="text" class="text" name="email" th:value="${memberDto.email}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="Email">
         <span th:text="${valid_email}"></span>
     </div>
 
