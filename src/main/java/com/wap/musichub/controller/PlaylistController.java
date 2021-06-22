@@ -22,13 +22,7 @@ public class PlaylistController {
     }
 
     @GetMapping("/playlist")
-    public String create(Model model) {
-
-        // 글 쓸 때, 작성자 이름 미리 지정
-        // 타임리프에서 어떻게 가져올지 몰라서, authorities Arraylist에서 추출해서 사용함.
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String nickname = ""+new ArrayList(auth.getAuthorities()).get(1);
-        model.addAttribute("nickname", nickname);
+    public String create() {
 
         return "playlist/create";
     }

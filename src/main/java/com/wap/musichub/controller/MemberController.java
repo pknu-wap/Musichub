@@ -62,14 +62,8 @@ public class MemberController {
 
     // my page
     @GetMapping("/member/info")
-    public String displayInfo(Model model){
+    public String displayInfo(){
 
-
-        // 닉네임 표시
-        // 타임리프에서 어떻게 가져올지 몰라서, authorities Arraylist에서 추출해서 사용함.
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String nickname = ""+new ArrayList(auth.getAuthorities()).get(1);
-        model.addAttribute("nickname", nickname);
 
         return "/member/info";
     }

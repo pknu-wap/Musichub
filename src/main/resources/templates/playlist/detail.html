@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,7 +12,8 @@
 작성자 : <span th:text="${playlistDto.writer}"></span> <br/>
 <p th:inline="text">작성일 : [[${#temporals.format(playlistDto.createDate, 'yyyy-MM-dd HH:mm')}]]</p>
 
-<div>
+<!--<div sec:authorize="isAuthenticated()">-->
+<div th:if="${playlistDto.writer.equals(#authentication.getName())}">
     <a th:href="@{'/playlist/edit/'+${playlistDto.id}}">
         <button>수정</button>
     </a>

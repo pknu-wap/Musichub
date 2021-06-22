@@ -27,6 +27,7 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
         List<PlaylistDto> playlistList = playlistService.getList();
+
         model.addAttribute("playlistList", playlistList);
 
         return "home";
