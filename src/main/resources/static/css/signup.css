@@ -9,7 +9,7 @@
         font-family: 'Source Sans Pro', sans-serif;
     }
     header {
-        background-color: lightgray;
+        background-color: rgb(196, 196, 196);
         height: 70px;
         font-weight: 700;
         margin-top: 0px;
@@ -25,7 +25,7 @@
         align-items: center;
         margin: auto;
         margin-top: 200px;
-        border: 2px solid darkgrey;
+        border: 2px solid rgb(196, 196, 196);
         border-radius: 8px;
     }
     body{
@@ -50,7 +50,7 @@
         padding: 10px;
         width: 230px;
         margin-top: 15px;
-        background-color: rgb(238, 238, 238);
+        background-color: rgb(237, 237, 237);
         border: none;
     }
     .signupbtn {
@@ -60,7 +60,7 @@
         border: none;
         padding: 7px;
         width: 230px;
-        background-color: darkgrey;
+        background-color: rgb(196, 196, 196);
         margin-bottom: auto;
         margin-top: 15px;
         color: black;
