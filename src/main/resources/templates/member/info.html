@@ -14,6 +14,31 @@
     <span sec:authentication="name"></span>님 안녕하세요!
 </p>
 
+
+<h3>내가 쓴 글</h3>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Playlist-Title</th>
+        <th>Writer</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="playlist : ${playDtoList}">
+        <td th:text="${playlist.id}"></td>
+
+        <td>
+            <a th:href="@{'/member/management/'+${playlist.id}}" th:text="${playlist.title}"></a>
+        </td>
+
+        <td>
+            <a th:text="${playlist.writer}"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
 <div th:insert="common/footer.html" id="footer"></div>
 
 </body>
