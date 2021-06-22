@@ -10,7 +10,11 @@
 </head>
 <body>
 
+
     <div class="text-end p-2" style="color: #568CF5;">
+        <span sec:authorize="isAuthenticated()">
+            <span sec:authentication="name"></span>님 안녕하세요!
+        </span>
         <a sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
         <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
         <a sec:authorize="isAnonymous()" th:href="@{/member/signup}">회원가입</a>
@@ -65,7 +69,7 @@
                             <p class="card-text" th:text="${playlist.title}"></p>
                         </div>
                     </a>
-                    <p th:text="${playlist.writer}"></p>
+                    <p th:text="${playlist.writer}" style="padding-left: 16px"></p>
                 </div>
             </div>
 

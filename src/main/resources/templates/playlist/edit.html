@@ -12,6 +12,7 @@
 <form th:action="@{'/playlist/edit/'+${playlistDto.id}}" method="post">
   <input type="hidden" name="_method" value="put"/>
   <input type="text" name="title" placeholder="Modified Title" th:value="${playlistDto.title}"/> <br/>
+  <input type="text" name="writer" th:value="${playlistDto.writer}" readonly/> <br/>
   <input type="submit" value="Edit"/>
 </form>
 
