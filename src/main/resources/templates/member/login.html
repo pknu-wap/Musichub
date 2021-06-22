@@ -3,20 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
+        </style>
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-
+    <header>
+        <p class="hd"><a href="home.html" style="color: black; text-decoration: none;">&nbsp;← </a>Login</p>
+    </header>
 <div th:insert="common/header.html" id="header"></div>
-
+<div class="logincontainer">
 <h2>Login</h2>
-
+<div class="center inline">
 <form action="/member/login" method="post">
+    <div>
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-    <input type="text" name="username" placeholder="이메일"/>
-    <input type="password" name="password" placeholder="비밀번호"/>
-    <button type="submin">로그인</button>
+    <input type="text" class="text" name="username" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="Email"/>
+    </div>
+    <div>
+    <input type="password" class="text" name="password" placeholder="Password"/>
+    </div>
+    <button type="submin" class="loginbtn">Login</button>
+    <p>Don't have an account? <a href="signup.html" style="color: rgb(62, 152, 255);">Sign up</a></p>
 </form>
-
+</div>
+</div>
 <div th:insert="common/footer.html" id="footer"></div>
 
 </body>
