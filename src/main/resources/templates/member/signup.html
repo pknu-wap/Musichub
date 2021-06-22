@@ -31,9 +31,9 @@
         <span th:text="${valid_password}"></span>
     </div>
 
-    <button class="signupbtn">Sign Up</button>
-    <p>Already have an account? <a href="login.html" style="color: rgb(62, 152, 255);">Login</a></p>
+    <button type="submit" class="signupbtn">Sign Up</button>
 </form>
+    <p>Already have an account? <a th:href="@{/member/login}" style="color: rgb(62, 152, 255);">Login</a></p>
 </div>
 </div>
 

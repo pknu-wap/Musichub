@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface JpaPlaylistRepository extends JpaRepository<PlaylistEntity, Long> {
     List<PlaylistEntity> findByTitleContaining(String keyword);
+
+    List<PlaylistEntity> findByWriter(String keyword);
 }

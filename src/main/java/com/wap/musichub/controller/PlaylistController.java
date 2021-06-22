@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PlaylistController {
@@ -65,5 +66,29 @@ public class PlaylistController {
         playlistService.savePlaylist(playlistDto);
 
         return "redirect:/playlist/" + id;
+    }
+
+    // my page
+    @GetMapping("/member/info")
+    public String displayInfo(Model model){
+
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<PlaylistDto> playDtoList = playlistService.getByWriter(auth.getName());
+
+        model.addAttribute("playDtoList", playDtoList);
+
+        return "/member/info";
+    }
+
+    // management page
+    @GetMapping("/member/management/{id}")
+    public String managePlaylist(@PathVariable("id") Long id, Model model) {
+        PlaylistDto dto = playlistService.getById(id);
+
+        model.addAttribute("playlistDto", dto);
+
+        return "/member/management";
+
     }
 }

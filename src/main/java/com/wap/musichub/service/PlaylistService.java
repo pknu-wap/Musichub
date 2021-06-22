@@ -85,4 +85,18 @@ public class PlaylistService {
                 .writer(playlistEntity.getWriter())
                 .build();
     }
+
+    // 내가 쓴 글 가져오기
+    public List<PlaylistDto> getByWriter(String keyword) {
+        List<PlaylistEntity> playlistEntities = playlistRepository.findByWriter(keyword);
+        List<PlaylistDto> playDtoList = new ArrayList<>();
+
+        if (playlistEntities.isEmpty()) return playDtoList;
+
+        for (PlaylistEntity playlistEntity : playlistEntities) {
+            playDtoList.add(this.convertEntityToDto(playlistEntity));
+        }
+
+        return playDtoList;
+    }
 }

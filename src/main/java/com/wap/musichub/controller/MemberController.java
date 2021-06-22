@@ -59,12 +59,4 @@ public class MemberController {
 
         return "redirect:/member/login";
     }
-
-    // my page
-    @GetMapping("/member/info")
-    public String displayInfo(){
-
-
-        return "/member/info";
-    }
 }
