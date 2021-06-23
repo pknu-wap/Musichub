@@ -3,18 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/css/create.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
+    </style>
 </head>
 <body>
-
+    <header>
+        <p class="hd"><a href="home.html" style="color: black; text-decoration: none;">&nbsp;← </a>Create Playlist</p>
+    </header>
 <div th:insert="common/header.html" id="header"></div>
-<h2>Create Playlist</h2>
+    <div class="box1">
+    <div class="box2">
+    <h2>Playlist Title</h2>
 
 <form th:action="@{/playlist}" method="post">
-    <input type="text" name="title" placeholder="Playlist Title"/> <br/>
-    <input type="text" name="writer" th:value="${#authentication.getName()}" readonly/> <br/>
-    <input type="submit" value="Create"/>
+    <input type="text" name="title" class="title" placeholder="Playlist Title"/> <br/>
+    <input type="text" name="writer" class="writer" th:value="${#authentication.getName()}" readonly/> <br/>
+    <input type="submit" class="sub" value="Create"/>
 </form>
-
+    </div>
+    </div>
 <div th:insert="common/footer.html" id="footer"></div>
 
 </body>
