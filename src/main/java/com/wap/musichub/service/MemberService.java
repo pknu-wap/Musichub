@@ -64,5 +64,15 @@ public class MemberService implements UserDetailsService {
 
         return validatorResult;
     }
+
+    // 중복 체크
+
+    public boolean checkEmailDuplicate(String email) {
+        return memberRepository.existsByEmail(email);
+    }
+
+    public boolean checkNicknameDuplicate(String nickname) {
+        return memberRepository.existsByNickname(nickname);
+    }
 }
 
