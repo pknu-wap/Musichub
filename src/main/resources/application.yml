@@ -11,7 +11,8 @@ spring:
     show-sql: true
     hibernate:
       format_sql: true
-  #      create 마다 초기화
+
+  #   create 마다 초기화
       ddl-auto: none
 
   #  delete, put 메소드 사용
