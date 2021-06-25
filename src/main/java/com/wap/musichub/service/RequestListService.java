@@ -21,7 +21,7 @@ public class RequestListService {
 
     @Transactional
     public Long saveRequestList(RequestListDto requestListDto) {
-        return requestListRepository.save(requestListDto.toRequestListEntity()).getPostId();
+        return requestListRepository.save(requestListDto.toRequestListEntity()).getId();
     }
 
     @Transactional

@@ -41,21 +41,19 @@ public class PlaylistController {
     }
 
     @GetMapping("/playlist/{id}")
-    public String detail(@PathVariable("id") Long id, Model model1, Model model2) {
+    public String detail(@PathVariable("id") Long id, Model model) {
         PlaylistDto dto = playlistService.getById(id);
-        List<RequestListDto> requestListDtoList = requestListService.getListByPostId(id);
-        model1.addAttribute("playlistDto", dto);
-        model2.addAttribute("requestList", requestListDtoList);
+        model.addAttribute("playlistDto", dto);
 
         return "playlist/detail";
     }
 
-    @PostMapping("/playlist/{id}")
-    public String create(@PathVariable("id") Long id, RequestListDto requestListDto) {
+    @PostMapping("/playlist/request")
+    public String request(RequestListDto requestListDto) {
 
         requestListService.saveRequestList(requestListDto);
 
-        return "redirect:/playlist/" + id;
+        return "redirect:/playlist/" + requestListDto.getPostId();
     }
 
     @DeleteMapping("/playlist/{id}")
