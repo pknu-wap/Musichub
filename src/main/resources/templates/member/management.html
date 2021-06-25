@@ -11,5 +11,14 @@
 
 <!--플레이 리스트 추가 요청 목록-->
 
+<form th:action="@{/detailList/add}" method="post">
+    <input type="text" name="link" /><br/>
+    <input type="hidden" name="postId" th:value="${playlistDto.id}"/>
+    <button type="submit">추가</button>
+</form>
+
+<form th:action="@{/}" method="post">
+    <button type="submit">거절</button>
+</form>
 </body>
 </html>
