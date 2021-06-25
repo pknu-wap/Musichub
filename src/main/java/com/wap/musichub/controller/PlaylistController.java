@@ -1,6 +1,8 @@
 package com.wap.musichub.controller;
 
+import com.wap.musichub.dto.DetailListDto;
 import com.wap.musichub.dto.PlaylistDto;
+import com.wap.musichub.service.DetailListService;
 import com.wap.musichub.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,10 +18,12 @@ import java.util.List;
 public class PlaylistController {
 
     private PlaylistService playlistService;
+    private DetailListService detailListService;
 
     @Autowired
-    public PlaylistController(PlaylistService playlistService) {
+    public PlaylistController(PlaylistService playlistService, DetailListService detailListService) {
         this.playlistService = playlistService;
+        this.detailListService = detailListService;
     }
 
     @GetMapping("/playlist")
@@ -41,6 +45,9 @@ public class PlaylistController {
         PlaylistDto dto = playlistService.getById(id);
 
         model.addAttribute("playlistDto", dto);
+
+        List<DetailListDto> detailDtoList = detailListService.getListByPostId(id);
+        model.addAttribute("detailDtoList", detailDtoList);
 
         return "playlist/detail";
     }

@@ -12,8 +12,28 @@
 작성자 : <span th:text="${playlistDto.writer}"></span> <br/>
 <p th:inline="text">작성일 : [[${#temporals.format(playlistDto.createDate, 'yyyy-MM-dd HH:mm')}]]</p>
 
-<!--<div sec:authorize="isAuthenticated()">-->
+
+<h3>재생 목록</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="detail : ${detailDtoList}">
+        <td th:text="${detail.link}"></td>
+    </tr>
+    </tbody>
+</table>
+
 <div th:if="${playlistDto.writer.equals(#authentication.getName())}">
+
+
+    <a th:href="@{'/member/management/'+${playlistDto.id}}">
+        <button>관리페이지</button>
+    </a><br/>
+
     <a th:href="@{'/playlist/edit/'+${playlistDto.id}}">
         <button>수정</button>
     </a>
@@ -21,6 +41,7 @@
     <form id="delete-form" th:action="@{'/playlist/' + ${playlistDto.id}}" th:method="delete">
         <button id="delete-btn">삭제</button>
     </form>
+
 </div>
 
 </body>
