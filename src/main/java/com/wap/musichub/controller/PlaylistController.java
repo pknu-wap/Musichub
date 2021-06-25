@@ -1,7 +1,9 @@
 package com.wap.musichub.controller;
 
 import com.wap.musichub.dto.PlaylistDto;
+import com.wap.musichub.dto.RequestListDto;
 import com.wap.musichub.service.PlaylistService;
+import com.wap.musichub.service.RequestListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,10 +18,12 @@ import java.util.List;
 public class PlaylistController {
 
     private PlaylistService playlistService;
+    private RequestListService requestListService;
 
     @Autowired
-    public PlaylistController(PlaylistService playlistService) {
+    public PlaylistController(PlaylistService playlistService, RequestListService requestListService) {
         this.playlistService = playlistService;
+        this.requestListService = requestListService;
     }
 
     @GetMapping("/playlist")
@@ -37,12 +41,21 @@ public class PlaylistController {
     }
 
     @GetMapping("/playlist/{id}")
-    public String detail(@PathVariable("id") Long id, Model model) {
+    public String detail(@PathVariable("id") Long id, Model model1, Model model2) {
         PlaylistDto dto = playlistService.getById(id);
-
-        model.addAttribute("playlistDto", dto);
+        List<RequestListDto> requestListDtoList = requestListService.getListByPostId(id);
+        model1.addAttribute("playlistDto", dto);
+        model2.addAttribute("requestList", requestListDtoList);
 
         return "playlist/detail";
+    }
+
+    @PostMapping("/playlist/{id}")
+    public String create(@PathVariable("id") Long id, RequestListDto requestListDto) {
+
+        requestListService.saveRequestList(requestListDto);
+
+        return "redirect:/playlist/" + id;
     }
 
     @DeleteMapping("/playlist/{id}")
