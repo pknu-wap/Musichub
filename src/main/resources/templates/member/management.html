@@ -11,14 +11,28 @@
 
 <!--플레이 리스트 추가 요청 목록-->
 
-<form th:action="@{/detailList/add}" method="post">
-    <input type="text" name="link" /><br/>
-    <input type="hidden" name="postId" th:value="${playlistDto.id}"/>
-    <button type="submit">추가</button>
-</form>
 
-<form th:action="@{/}" method="post">
-    <button type="submit">거절</button>
-</form>
+<h3>요청 목록</h3>
+
+<div th:each="request : ${requestDto}">
+
+    <p th:text="${request.link}"></p>
+
+    <form th:action="@{/detailList/add}" method="post">
+        <input type="hidden" name="link" th:value="${request.link}"/>
+        <input type="hidden" name="postId" th:value="${playlistDto.id}"/>
+        <input type="hidden" name="requestId" th:value="${request.id}"/>
+        <button type="submit">추가</button>
+    </form>
+
+    <form th:action="@{/detailList/delete}" th:method="delete">
+        <input type="hidden" name="link" th:value="${request.link}"/>
+        <input type="hidden" name="postId" th:value="${playlistDto.id}"/>
+        <input type="hidden" name="requestId" th:value="${request.id}"/>
+        <button type="submit">거절</button>
+    </form>
+</div>
+
+
 </body>
 </html>

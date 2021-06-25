@@ -24,7 +24,7 @@ public class PlaylistController {
     private DetailListService detailListService;
 
     @Autowired
-    public PlaylistController(PlaylistService playlistService, RequestListService requestListService) {
+    public PlaylistController(PlaylistService playlistService, RequestListService requestListService, DetailListService detailListService) {
         this.playlistService = playlistService;
         this.requestListService = requestListService;
         this.detailListService = detailListService;
@@ -104,7 +104,10 @@ public class PlaylistController {
     public String managePlaylist(@PathVariable("id") Long id, Model model) {
         PlaylistDto dto = playlistService.getById(id);
 
+        List<RequestListDto> requestListDtos = requestListService.getListByPostId(id);
+
         model.addAttribute("playlistDto", dto);
+        model.addAttribute("requestDto", requestListDtos);
 
         return "/member/management";
 
