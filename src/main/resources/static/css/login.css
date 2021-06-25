@@ -20,7 +20,7 @@ header {
 }
 .logincontainer {
     width: 400px;
-    height: 350px;
+    height: 360px;
     flex-direction: column;
     align-items: center;
     margin: auto;
