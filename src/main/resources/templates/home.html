@@ -7,61 +7,91 @@
 
     <link rel="stylesheet" href="/css/style.css" />
     <title>Musichub-Home</title>
+
+    <style>
+        .fab {
+            width: 70px;
+            height: 70px;
+            background-color: #6694f5;
+            border-radius: 50%;
+            box-shadow: 0 6px 10px 0 #666;
+            transition: all 0.1s ease-in-out;
+
+            font-size: 50px;
+            color: white;
+            text-align: center;
+            line-height: 70px;
+
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+        }
+
+        .fab:hover {
+            box-shadow: 0 6px 14px 0 #666;
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
 
 
-    <div class="text-end p-2" style="color: #568CF5;">
-        <span sec:authorize="isAuthenticated()" style="color: black;">
-            <span sec:authentication="name" style="font-weight: bold"></span>님 안녕하세요!
+<div class="p-3" style="color: #568CF5;">
+        <span style="float: left;">
+            <span sec:authorize="isAuthenticated()" style="color: black;">
+                <span sec:authentication="name" style="font-weight: bold"></span>님 안녕하세요!
+            </span>
         </span>
-        <a sec:authorize="isAuthenticated()" th:href="@{/playlist}">Create Playlist</a>
-        <a sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
-        <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
-        <a sec:authorize="isAnonymous()" th:href="@{/member/signup}">회원가입</a>
-        <a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/member/info}">내정보</a>
-    </div>
+    <span style="float: right;">
+            <a sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+            <a sec:authorize="isAnonymous()" th:href="@{/member/signup}">회원가입</a>
+            <a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/member/info}">내정보</a>
+        </span>
+</div>
 
-<!--    <div th:insert="common/header.html" id="header"></div>-->
+<div class="fab" sec:authorize="isAuthenticated()" >
+    <a th:href="@{/playlist}">+</a>
+</div>
 
-    <div class="home-title text-center p-2">
-        <h1 style="font-size: 48px;"><a href="/">Musichub</a></h1>
-    </div>
+<div class="home-title text-center p-2" style="margin-top: 100px;">
+    <h1 style="font-size: 48px;"><a href="/">Musichub</a></h1>
+</div>
 
-    <div class="container p-4">
-        <div class="row justify-content-center">
-            <div class="col col-md-8">
-                <form th:action="@{/search}" method="get">
-                    <div class="input-group mb-4 border rounded-pill p-2">
-                      <input type="text" name="keyword" placeholder="Find Playlist.." aria-describedby="button-addon3" class="form-control bg-none border-0">
-                      <div class="input-group-append border-0">
-                        <button id="button-addon3" type="button" class="btn btn-link text-success"><i class="bi bi-search"></i></button>
-                      </div>
+<div class="container p-4">
+    <div class="row justify-content-center">
+        <div class="col col-md-8">
+            <form th:action="@{/search}" method="get">
+                <div class="input-group mb-4 border rounded-pill p-2">
+                    <input type="text" name="keyword" placeholder="Find Playlist.." aria-describedby="button-addon3" class="form-control bg-none border-0">
+                    <div class="input-group-append border-0">
+                        <button id="button-addon3" type="submit" class="btn btn-link text-dark"><i class="bi bi-search"></i></button>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="container justify-content-start">
-        <div class="row">
-            <div class="col mt-4 col-md-3" th:each="playlist : ${playlistList}">
-                <div class="card" style="width: 18rem;">
-                    <a th:href="@{'/playlist/'+${playlist.id}}">
-                        <img src="https://img.freepik.com/free-psd/mockup-back-view-standing-blank-vinyl-record-with-cover-against-white-wall_75507-186.jpg?size=626&ext=jpg" class="card-img-top" alt="">
-                        <div class="card-body">
-                            <p class="card-text" th:text="${playlist.title}"></p>
-                        </div>
-                    </a>
-                    <p th:text="${playlist.writer}" style="padding-left: 16px"></p>
                 </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container justify-content-start">
+    <div class="row">
+        <div class="col mt-4 col-md-3" th:each="playlist : ${playlistList}">
+            <div class="card" style="width: 18rem;">
+                <a th:href="@{'/playlist/'+${playlist.id}}">
+                    <img src="https://img.freepik.com/free-psd/mockup-back-view-standing-blank-vinyl-record-with-cover-against-white-wall_75507-186.jpg?size=626&ext=jpg" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <p class="card-text" th:text="${playlist.title}" style="font-weight: bold; font-size: 24px;"></p>
+                    </div>
+                </a>
+                <p th:text="${playlist.writer}" class="text-secondary" style="padding-left: 16px;"></p>
             </div>
         </div>
     </div>
+</div>
 
 <!--    <div th:insert="common/footer.html" id="footer"></div>-->
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="js/bootstrap.js"></script>
 </body>
 </html>
