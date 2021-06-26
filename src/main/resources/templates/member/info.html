@@ -2,44 +2,49 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Signup Page</title>
+    <title>Musichub-My Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
+    </style>
+    <link rel="stylesheet" href="/css/info.css">
+    <link rel="stylesheet" href="/css/bootstrap.css" />
 </head>
 <body>
+    <header>
+        <p class="hd"><a href="/" style="color: black; text-decoration: none;">&nbsp;← </a>My Page</p>
+    </header>
 
-<div th:insert="common/header.html" id="header"></div>
+    <p class="p-2" style="text-align: center;"><span sec:authentication="name" style="font-weight: bold;"></span>님 안녕하세요!</p>
 
-<h2>My Page</h2>
+    <div class="container p-4">
+        <h3 style="font-size: 24px; text-align: center;">내가 쓴 글</h3>
+            <div class="row justify-content-center">
+                <div class="col col-md-8">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Playlist Title</th>
+                            <th scope="col">Writer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="playlist : ${playDtoList}">
+                            <td th:text="${playlist.id}"></td>
 
-<p>
-    <span sec:authentication="name"></span>님 안녕하세요!
-</p>
+                            <td>
+                                <a th:href="@{'/member/management/'+${playlist.id}}" th:text="${playlist.title}"></a>
+                            </td>
 
-
-<h3>내가 쓴 글</h3>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Playlist-Title</th>
-        <th>Writer</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="playlist : ${playDtoList}">
-        <td th:text="${playlist.id}"></td>
-
-        <td>
-            <a th:href="@{'/member/management/'+${playlist.id}}" th:text="${playlist.title}"></a>
-        </td>
-
-        <td>
-            <a th:text="${playlist.writer}"></a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<div th:insert="common/footer.html" id="footer"></div>
+                            <td>
+                                <a th:text="${playlist.writer}"></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
 
 </body>
 </html>
