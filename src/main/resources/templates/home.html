@@ -46,8 +46,8 @@
         <a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/member/info}">내정보</a>
     </div>
 
-    <div class="fab">
-        <a sec:authorize="isAuthenticated()" th:href="@{/playlist}">+</a>
+    <div class="fab" sec:authorize="isAuthenticated()" >
+        <a th:href="@{/playlist}">+</a>
     </div>
 
     <div class="home-title text-center p-2">
