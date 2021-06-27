@@ -9,11 +9,11 @@
 <body>
 
     <div class="container p-1 mt-4" style="width: 100%;">
-        <!-- 1 -->
+        <!-- 1행(페이지 전체) -->
         <div class="row">
-            <!-- 1-1 -->
+            <!-- 1행-1열(페이지의 왼쪽) -->
             <div class="col col-6">
-                <!-- 1-1-1 : 뒤로가기 / Playlist Info / Request-->
+                <!-- 1행-1열-1행 : 뒤로가기 / Playlist Info / Request-->
                 <div class="row">
                     <div class="container">
                         <span style="float: left">
@@ -21,7 +21,7 @@
                                 <span class="btn-group" style="float: left">
                                     <a href="/" style="color: black; text-decoration: none;"><i class="bi bi-arrow-left text-dark fs-3"></i></a>
                                 </span>
-                                <!--Dropbox => couldn't work => change into Select : title / writer / yymmdd-->
+                                <!--"Dropbox" => couldn't work => change into "Select" : title / writer / yymmdd-->
                                 <span style="float: right">
                                     <select class="form-select ms-1" aria-label="Default select example">
                                       <option selected>Playlist Info</option>
@@ -47,7 +47,7 @@
 
                 <div class="collapse"></div>
 
-                <!-- 1-1-2 : 관리페이지 / 수정 / 삭제-->
+                <!-- 1행-1열-2행 : 관리페이지 / 수정 / 삭제-->
                 <div class="row">
                     <div class="container mt-2" th:if="${playlistDto.writer.equals(#authentication.getName())}">
 
@@ -74,13 +74,13 @@
                     </div>
                 </div>
             <div>
-                <!-- Youtube Video & Title -->
+                <!-- Youtube Video Player (& Title) -->
             </div>
             </div>
 
             <div class="collapse"></div>
 
-            <!-- 1-2 : Playlists (Link) -->
+            <!-- 1열-2행(페이지의 오른쪽) : Playlists (Link) -->
             <div class="col col-6">
                 <div class="container w-100">
                     <h3>재생 목록</h3>
@@ -98,33 +98,34 @@
                     </table>
                 </div>
             </div>
+
         </div>
     </div>
 
 
-
+    <!-- 하단 컨트롤러 -->
     <footer>
         <nav class="navbar fixed-bottom navbar-light bg-light" style="height: 120px;">
             <!--Current Video Title-->
             <div class="container justify-content-center">
             <!--Nav Buttons : shuffle / backward / play / pause / forward / repeat-->
                 <span class="btn-group" onclick="">
-                    <i class="bi bi-shuffle fs-1 p-1 mx-3"></i>
+                    <i class="bi bi-shuffle fs-1 p-1 mx-3" style="cursor: pointer;"></i>
                 </span>
                 <span class="btn-group" onclick="">
-                    <i class="bi bi-skip-backward-fill fs-1 p-1 mx-3"></i>
+                    <i class="bi bi-skip-backward-fill fs-1 p-1 mx-3" style="cursor: pointer;"></i>
                 </span>
                 <span class="btn-group" onclick="">
-                    <i class="bi bi-play-fill p-1 mx-2" style="font-size: calc(1.4rem + 1.5vw);"></i>
+                    <i class="bi bi-play-fill p-1 mx-2" style="font-size: calc(1.4rem + 1.5vw); cursor: pointer;"></i>
                 </span>
                 <span class="btn-group" onclick="">
-                    <i class="bi bi-pause-fill p-1 mx-2" style="font-size: calc(1.4rem + 1.5vw);"></i>
+                    <i class="bi bi-pause-fill p-1 mx-2" style="font-size: calc(1.4rem + 1.5vw); cursor: pointer;"></i>
                 </span>
                 <span class="btn-group" onclick="">
-                    <i class="bi bi-skip-forward-fill fs-1 p-1 mx-3"></i>
+                    <i class="bi bi-skip-forward-fill fs-1 p-1 mx-3" style="cursor: pointer;"></i>
                 </span>
                 <span class="btn-group" onclick="">
-                    <i class="bi bi-arrow-repeat fs-1 p-1 mx-3"></i>
+                    <i class="bi bi-arrow-repeat fs-1 p-1 mx-3" style="cursor: pointer;"></i>
                 </span>
             </div>
         </nav>
