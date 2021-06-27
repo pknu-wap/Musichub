@@ -4,11 +4,21 @@ import com.wap.musichub.dto.DetailListDto;
 import com.wap.musichub.service.DetailListService;
 import com.wap.musichub.service.PlaylistService;
 import com.wap.musichub.service.RequestListService;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.RestTemplate;
+
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 public class DetailListController {
@@ -23,7 +33,7 @@ public class DetailListController {
     }
 
     @PostMapping("/detailList/add")
-    public String addList(DetailListDto detailListDto){
+    public String addList(DetailListDto detailListDto) {
 
         Long id = detailListService.saveList(detailListDto);
 
@@ -31,6 +41,7 @@ public class DetailListController {
 
         return "redirect:/member/management/"+detailListDto.getPostId();
     }
+
 
     // requestList 삭제
     @DeleteMapping("/detailList/delete")

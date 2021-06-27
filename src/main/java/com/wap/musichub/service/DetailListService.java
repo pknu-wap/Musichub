@@ -34,6 +34,7 @@ public class DetailListService {
                     .id(entity.getId())
                     .postId(entity.getPostId())
                     .link(entity.getLink())
+                    .title(entity.getTitle())
                     .build();
 
             DtoList.add(dto);

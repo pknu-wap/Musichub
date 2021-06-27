@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous">
+    </script>
     <meta charset="UTF-8">
     <title>Musichub-Playlist Detail</title>
     <link rel="stylesheet" href="/css/bootstrap.css" />
@@ -37,7 +41,7 @@
                                 </span>
                             </div>
                         </span>
-    
+
                         <span style="float: right">
                             <form th:action="@{/playlist/request}" method="post">
                                 <div class="input-group mb-3">
@@ -47,11 +51,11 @@
                                 </div>
                             </form>
 
-<!--                            <form id="form" th:object="">-->
+<!--                            <form id="form" th:method="post">-->
 <!--                                <div class="input-group mb-3">-->
 <!--                                    <input type="hidden" name="postId" th:value="${playlistDto.id}">-->
 <!--                                    <input type="text" name="link" class="form-control" placeholder="Youtube URL" aria-label="Youtube URL" aria-describedby="button-addon2">-->
-<!--                                    <input class="btn btn-outline-secondary" type="submit" value="Request" id="button-addon2">-->
+<!--                                    <input class="btn btn-outline-secondary" type="button" value="Request" id="button-addon2">-->
 <!--                                </div>-->
 <!--                            </form>-->
                         </span>
@@ -107,7 +111,10 @@
                         <tr th:each="detail : ${detailDtoList}">
                             <td>
                                 <input type="hidden" name="tb" th:value="${detail.link}" readonly>
-                                <span th:text="${detail.link}" name="textd"></span>
+
+                                <span th:text="${detail.title}"></span><br/>
+                                <span th:text="${detail.link}"></span>
+
                                 <span style="float: right;" th:if="${playlistDto.writer.equals(#authentication.getName())}">
                                     <form th:action="@{'/playlist/delete/' + ${detail.id}}" th:method="delete">
                                         <input type="hidden" name="postId" th:value="${detail.postId}"/>
