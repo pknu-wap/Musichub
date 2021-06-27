@@ -1,13 +1,26 @@
 // form, reload 방지
 function inputData(){
     var data = $('#form').serialize();
+
+    console.log(data);
+    var postid = $("[name^='postId']").val();
+    var link = $("[name^='link']").val();
+
+    console.log(postid);
+    console.log(link);
+
+    var RequestListDto = {
+        postId:postid,
+        link:link
+    };
+
     $.ajax({
-        url: "/home/test7_1",
+        url: "playlist/request",
         data: data,
         type:"POST",
         cache: false
     }).done(function (fragment) {
-        $("#list").replaceWith(fragment);
+        // $("#list").replaceWith(fragment);
     });
 
 }

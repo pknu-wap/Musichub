@@ -24,11 +24,15 @@ public class DetailListEntity {
     @Column(nullable = false)
     private String link;
 
+    @Column(nullable = false)
+    private String title;
+
     @Builder
-    public DetailListEntity(Long id, Long postId, Long requestId, String link) {
+    public DetailListEntity(Long id, Long postId, Long requestId, String link, String title) {
         this.id = id;
         this.postId = postId;
         this.requestId = requestId;
         this.link = link;
+        this.title = title;
     }
 }
