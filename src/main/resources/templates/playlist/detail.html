@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <meta charset="UTF-8">
     <title>Musichub-Playlist Detail</title>
     <link rel="stylesheet" href="/css/bootstrap.css" />
     <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
+
+    <div style="position: absolute; left: 200px; top: 250px;">
+        <div id="player" style="position:fixed;"></div>
+    </div>
 
     <div class="container p-1 mt-4" style="width: 100%;">
         <!-- 1행(페이지 전체) -->
@@ -41,6 +46,14 @@
                                     <input class="btn btn-outline-secondary" type="submit" value="Request" id="button-addon2">
                                 </div>
                             </form>
+
+<!--                            <form id="form" th:object="">-->
+<!--                                <div class="input-group mb-3">-->
+<!--                                    <input type="hidden" name="postId" th:value="${playlistDto.id}">-->
+<!--                                    <input type="text" name="link" class="form-control" placeholder="Youtube URL" aria-label="Youtube URL" aria-describedby="button-addon2">-->
+<!--                                    <input class="btn btn-outline-secondary" type="submit" value="Request" id="button-addon2">-->
+<!--                                </div>-->
+<!--                            </form>-->
                         </span>
                     </div>
                 </div>
@@ -92,7 +105,17 @@
                         </thead>
                         <tbody>
                         <tr th:each="detail : ${detailDtoList}">
-                            <td th:text="${detail.link}"></td>
+                            <td>
+                                <input type="hidden" name="tb" th:value="${detail.link}" readonly>
+                                <span th:text="${detail.link}" name="textd"></span>
+                                <span style="float: right;" th:if="${playlistDto.writer.equals(#authentication.getName())}">
+                                    <form th:action="@{'/playlist/delete/' + ${detail.id}}" th:method="delete">
+                                        <input type="hidden" name="postId" th:value="${detail.postId}"/>
+                                        <button class="btn btn-outline-secondary">삭제</button>
+                                    </form>
+                                </span>
+                            </td>
+
                         </tr>
                         </tbody>
                     </table>
@@ -109,72 +132,30 @@
             <!--Current Video Title-->
             <div class="container justify-content-center">
             <!--Nav Buttons : shuffle / backward / play / pause / forward / repeat-->
-                <span class="btn-group" onclick="">
-                    <i class="bi bi-shuffle fs-1 p-1 mx-3" style="cursor: pointer;"></i>
-                </span>
-                <span class="btn-group" onclick="">
+<!--                <span class="btn-group" onclick="">-->
+<!--                    <i class="bi bi-shuffle fs-1 p-1 mx-3" style="cursor: pointer;"></i>-->
+<!--                </span>-->
+                <span id="Previous_ms" class="btn-group" onclick="">
                     <i class="bi bi-skip-backward-fill fs-1 p-1 mx-3" style="cursor: pointer;"></i>
                 </span>
-                <span class="btn-group" onclick="">
+                <span id="Seq_Execute" class="btn-group" onclick="">
                     <i class="bi bi-play-fill p-1 mx-2" style="font-size: calc(1.4rem + 1.5vw); cursor: pointer;"></i>
                 </span>
-                <span class="btn-group" onclick="">
-                    <i class="bi bi-pause-fill p-1 mx-2" style="font-size: calc(1.4rem + 1.5vw); cursor: pointer;"></i>
-                </span>
-                <span class="btn-group" onclick="">
+<!--                <span class="btn-group" onclick="">-->
+<!--                    <i class="bi bi-pause-fill p-1 mx-2" style="font-size: calc(1.4rem + 1.5vw); cursor: pointer;"></i>-->
+<!--                </span>-->
+                <span id="Next_ms" class="btn-group" onclick="">
                     <i class="bi bi-skip-forward-fill fs-1 p-1 mx-3" style="cursor: pointer;"></i>
                 </span>
-                <span class="btn-group" onclick="">
-                    <i class="bi bi-arrow-repeat fs-1 p-1 mx-3" style="cursor: pointer;"></i>
-                </span>
+<!--                <span class="btn-group" onclick="">-->
+<!--                    <i class="bi bi-arrow-repeat fs-1 p-1 mx-3" style="cursor: pointer;"></i>-->
+<!--                </span>-->
             </div>
         </nav>
     </footer>
 
-<!--Original Contents-->
+    <script src="/js/youtube.js"></script>
+    <script src="/js/form.js"></script>
 
-<!--<div th:insert="common/header.html" id="header"></div>-->
-
-<!--<h2 th:text="${playlistDto.title}"></h2>-->
-<!--작성자 : <span th:text="${playlistDto.writer}"></span> <br/>-->
-<!--<p th:inline="text">작성일 : [[${#temporals.format(playlistDto.createDate, 'yyyy-MM-dd HH:mm')}]]</p>-->
-
-
-<!--<h3>재생 목록</h3>-->
-<!--<table>-->
-<!--    <thead>-->
-<!--    <tr>-->
-<!--        <th>Link</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr th:each="detail : ${detailDtoList}">-->
-<!--        <td th:text="${detail.link}"></td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--</table>-->
-
-<!--<div th:if="${playlistDto.writer.equals(#authentication.getName())}">-->
-
-
-<!--    <a th:href="@{'/member/management/'+${playlistDto.id}}">-->
-<!--        <button>관리페이지</button>-->
-<!--    </a><br/>-->
-
-<!--    <a th:href="@{'/playlist/edit/'+${playlistDto.id}}">-->
-<!--        <button>수정</button>-->
-<!--    </a>-->
-
-<!--    <form id="delete-form" th:action="@{'/playlist/' + ${playlistDto.id}}" th:method="delete">-->
-<!--        <button id="delete-btn">삭제</button>-->
-<!--    </form>-->
-
-<!--</div>-->
-
-<!--<form th:action="@{/playlist/request}" method="post">-->
-<!--    <input type="hidden" name="postId" th:value="${playlistDto.id}">-->
-<!--    <input type="text" name="link">-->
-<!--    <input type="submit" value="Request">-->
-<!--</form>-->
 </body>
 </html>
