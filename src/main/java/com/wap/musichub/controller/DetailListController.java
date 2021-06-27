@@ -7,6 +7,7 @@ import com.wap.musichub.service.RequestListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -31,10 +32,19 @@ public class DetailListController {
         return "redirect:/member/management/"+detailListDto.getPostId();
     }
 
+    // requestList 삭제
     @DeleteMapping("/detailList/delete")
     public String delete(DetailListDto detailListDto) {
         requestListService.deleteById(detailListDto.getRequestId());
 
         return "redirect:/member/management/"+detailListDto.getPostId();
+    }
+
+    // detailList 삭제
+    @DeleteMapping("/playlist/delete/{id}")
+    public String deleteFromList(@PathVariable("id") Long id, DetailListDto detailListDto) {
+        detailListService.deleteById(id);
+
+        return "redirect:/playlist/" + detailListDto.getPostId();
     }
 }

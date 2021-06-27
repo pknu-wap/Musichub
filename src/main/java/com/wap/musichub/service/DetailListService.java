@@ -41,4 +41,7 @@ public class DetailListService {
         return DtoList;
     }
 
+    @Transactional
+    public void deleteById(Long id) {detailListRepository.deleteById(id);}
+
 }
