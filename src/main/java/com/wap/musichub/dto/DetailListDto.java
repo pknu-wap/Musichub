@@ -12,6 +12,7 @@ public class DetailListDto {
     private Long postId;
     private Long requestId;
     private String link;
+    private String title;
 
     public DetailListEntity toDetailListEntity() {
         DetailListEntity detailListEntity = DetailListEntity.builder()
@@ -19,15 +20,17 @@ public class DetailListDto {
                 .postId(postId)
                 .requestId(requestId)
                 .link(link)
+                .title(title)
                 .build();
         return detailListEntity;
     }
 
     @Builder
-    public DetailListDto(Long id, Long postId, Long requestId, String link) {
+    public DetailListDto(Long id, Long postId, Long requestId, String link, String title) {
         this.id = id;
         this.postId = postId;
         this.requestId = requestId;
         this.link = link;
+        this.title = title;
     }
 }

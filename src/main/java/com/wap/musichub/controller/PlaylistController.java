@@ -6,6 +6,8 @@ import com.wap.musichub.dto.RequestListDto;
 import com.wap.musichub.service.DetailListService;
 import com.wap.musichub.service.PlaylistService;
 import com.wap.musichub.service.RequestListService;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,8 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 public class PlaylistController {
@@ -56,11 +63,60 @@ public class PlaylistController {
     }
 
     @PostMapping("/playlist/request")
-    public String request(RequestListDto requestListDto) {
+    public String request(RequestListDto requestListDto) throws IOException{
+
+        String youtube_id = getYouTubeId(requestListDto.getLink());
+
+        String result_url = "https://noembed.com/embed?url=https://www.youtube.com/watch?v=" + youtube_id;
+
+        JSONObject json = readJsonFromUrl(result_url);
+        System.out.println(json.toString());
+        System.out.println(json.get("title"));
+
+        String title = (String) json.get("title");
+
+        requestListDto.setTitle(title);
+
+        System.out.println(requestListDto.getPostId());
+        System.out.println(requestListDto.getLink());
+        System.out.println(requestListDto.getTitle());
 
         requestListService.saveRequestList(requestListDto);
 
         return "redirect:/playlist/" + requestListDto.getPostId();
+    }
+
+
+    private static String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+            sb.append((char) cp);
+        }
+        return sb.toString();
+    }
+
+    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+        InputStream is = new URL(url).openStream();
+        try {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            String jsonText = readAll(rd);
+            JSONObject json = new JSONObject(jsonText);
+            return json;
+        } finally {
+            is.close();
+        }
+    }
+    private static String getYouTubeId(String youTubeUrl) {
+        String pattern = "https?://(?:[0-9A-Z-]+\\.)?(?:youtu\\.be/|youtube\\.com\\S*[^\\w\\-\\s])([\\w\\-]{11})(?=[^\\w\\-]|$)(?![?=&+%\\w]*(?:['\"][^<>]*>|</a>))[?=&+%\\w]*";
+
+        Pattern compiledPattern = Pattern.compile(pattern,
+                Pattern.CASE_INSENSITIVE);
+        Matcher matcher = compiledPattern.matcher(youTubeUrl);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return null;
     }
 
     @DeleteMapping("/playlist/{id}")

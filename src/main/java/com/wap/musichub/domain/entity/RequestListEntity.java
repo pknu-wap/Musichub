@@ -20,10 +20,13 @@ public class RequestListEntity {
 
     private String link;
 
+    private String title;
+
     @Builder
-    public RequestListEntity(Long id, Long postId, String link) {
+    public RequestListEntity(Long id, Long postId, String link, String title) {
         this.id = id;
         this.postId = postId;
         this.link = link;
+        this.title = title;
     }
 }
