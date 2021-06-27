@@ -7,6 +7,11 @@
             crossorigin="anonymous">
     </script>
     <meta charset="UTF-8">
+
+    <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+    <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+<!--    출처: https://chung-develop.tistory.com/8 [춍춍's 블로그]-->
+
     <title>Musichub-Playlist Detail</title>
     <link rel="stylesheet" href="/css/bootstrap.css" />
     <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
@@ -43,21 +48,21 @@
                         </span>
 
                         <span style="float: right">
-                            <form th:action="@{/playlist/request}" method="post">
-                                <div class="input-group mb-3">
-                                    <input type="hidden" name="postId" th:value="${playlistDto.id}">
-                                    <input type="text" name="link" class="form-control" placeholder="Youtube URL" aria-label="Youtube URL" aria-describedby="button-addon2">
-                                    <input class="btn btn-outline-secondary" type="submit" value="Request" id="button-addon2">
-                                </div>
-                            </form>
-
-<!--                            <form id="form" th:method="post">-->
+<!--                            <form th:action="@{/playlist/request}" method="post">-->
 <!--                                <div class="input-group mb-3">-->
 <!--                                    <input type="hidden" name="postId" th:value="${playlistDto.id}">-->
 <!--                                    <input type="text" name="link" class="form-control" placeholder="Youtube URL" aria-label="Youtube URL" aria-describedby="button-addon2">-->
-<!--                                    <input class="btn btn-outline-secondary" type="button" value="Request" id="button-addon2">-->
+<!--                                    <input class="btn btn-outline-secondary" type="submit" value="Request" id="button-addon2">-->
 <!--                                </div>-->
 <!--                            </form>-->
+
+                            <form id="form" th:method="post">
+                                <div class="input-group mb-3">
+                                    <input type="hidden" name="postId" th:value="${playlistDto.id}">
+                                    <input type="text" name="link" class="form-control" placeholder="Youtube URL" aria-label="Youtube URL" aria-describedby="button-addon2">
+                                    <input class="btn btn-outline-secondary" type="button" value="Request" id="button-addon2">
+                                </div>
+                            </form>
                         </span>
                     </div>
                 </div>

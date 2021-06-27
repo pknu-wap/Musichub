@@ -203,15 +203,26 @@ $('#after_play').change(function () {
 
     onLoad = $(this).val();
 });
-//
-// $('#button-addon2').click(function () {
-//     $.ajax({
-//         url: "/playlist/request",
-//         data: {
-//             "postId" : $("[name^='postId']").val(),
-//             "link" : $("[name^='link']").val()
-//         },
-//         type:"POST",
-//         cache: false
-//     })
-// })
+
+$('#button-addon2').click(function () {
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+
+    $.ajax({
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        url: "/playlist/request",
+        data: {
+            "postId": $("[name^='postId']").val(),
+            "link": $("[name^='link']").val()
+        },
+        type: "POST",
+        cache: false,
+        success: function (result) {
+        },
+        error: function (e) {
+        }
+    });
+});
