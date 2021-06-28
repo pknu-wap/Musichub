@@ -15,12 +15,31 @@
     <title>Musichub-Playlist Detail</title>
     <link rel="stylesheet" href="/css/bootstrap.css" />
     <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        html {
+            margin-bottom: 120px;
+        }
+        /*https://erim1005.tistory.com/entry/Youtube-iframe-width-100-height-auto*/
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            padding-top: 30px;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe,
+        .video-container object,
+        .video-container embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
-
-    <div style="position: absolute; left: 200px; top: 250px;">
-        <div id="player" style="position:fixed;"></div>
-    </div>
 
     <div class="container p-1 mt-4" style="width: 100%;">
         <!-- 1행(페이지 전체) -->
@@ -48,18 +67,10 @@
                         </span>
 
                         <span style="float: right">
-<!--                            <form th:action="@{/playlist/request}" method="post">-->
-<!--                                <div class="input-group mb-3">-->
-<!--                                    <input type="hidden" name="postId" th:value="${playlistDto.id}">-->
-<!--                                    <input type="text" name="link" class="form-control" placeholder="Youtube URL" aria-label="Youtube URL" aria-describedby="button-addon2">-->
-<!--                                    <input class="btn btn-outline-secondary" type="submit" value="Request" id="button-addon2">-->
-<!--                                </div>-->
-<!--                            </form>-->
-
                             <form id="form" th:method="post">
                                 <div class="input-group mb-3">
                                     <input type="hidden" name="postId" th:value="${playlistDto.id}">
-                                    <input type="text" name="link" class="form-control" placeholder="Youtube URL" aria-label="Youtube URL" aria-describedby="button-addon2">
+                                    <input type="text" name="link" class="form-control" placeholder="Youtube URL" aria-label="Youtube URL" aria-describedby="button-addon2" id="urlInput">
                                     <input class="btn btn-outline-secondary" type="button" value="Request" id="button-addon2">
                                 </div>
                             </form>
@@ -95,30 +106,40 @@
 
                     </div>
                 </div>
-            <div>
-                <!-- Youtube Video Player (& Title) -->
-            </div>
+
+                <div class="collapse"></div>
+
+                <!-- 1행-1열-3행 : Youtube Video Player (& Title) -->
+                <div class="row">
+                    <div class="container video-container justify-content-center" style="margin-top: 100px;">
+                        <div id="player"></div>
+                    </div>
+                </div>
+
             </div>
 
             <div class="collapse"></div>
 
-            <!-- 1열-2행(페이지의 오른쪽) : Playlists (Link) -->
+            <!-- 1행-2열(페이지의 오른쪽) : Playlists (Link) -->
             <div class="col col-6">
                 <div class="container w-100">
                     <h3>재생 목록</h3>
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">Link</th>
+                            <th scope="col">Title / Link</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="detail : ${detailDtoList}">
-                            <td>
+                            <td class="align-middle">
                                 <input type="hidden" name="tb" th:value="${detail.link}" readonly>
 
-                                <span th:text="${detail.title}"></span><br/>
-                                <span th:text="${detail.link}"></span>
+                                <p th:text="${detail.title}" class="fw-bold mb-2"></p>
+
+                                <span class="text-start align-middle">
+                                    <a th:href="@{${detail.link}}" th:text="${detail.link}" target="_blank" class="text-decoration-none fs-6 fw-light"></a>
+                                </span>
 
                                 <span style="float: right;" th:if="${playlistDto.writer.equals(#authentication.getName())}">
                                     <form th:action="@{'/playlist/delete/' + ${detail.id}}" th:method="delete">

@@ -225,4 +225,13 @@ $('#button-addon2').click(function () {
         error: function (e) {
         }
     });
+
+    document.getElementById('urlInput').value = '';
+});
+
+$("#urlInput").keydown(function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        $("#button-addon2").click();
+    }
 });
